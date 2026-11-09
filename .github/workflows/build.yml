@@ -55,7 +55,6 @@ jobs:
             curl -fL --retry 3 --retry-delay 5 -o project.zip "$SRC"
           else
             if [ ! -f "$SRC" ]; then
-              # download dari repo via API
               curl -fL --retry 3 \
                 -H "Authorization: Bearer ${GH_TOKEN}" \
                 -H "Accept: application/vnd.github.raw" \
@@ -69,7 +68,6 @@ jobs:
           ls -lh project.zip
           unzip -q project.zip -d project_raw
 
-          # unwrap folder
           if [ ! -f project_raw/pubspec.yaml ]; then
             SUB=$(find project_raw -maxdepth 2 -name pubspec.yaml -printf '%h\n' | head -1 || true)
             if [ -n "$SUB" ]; then
